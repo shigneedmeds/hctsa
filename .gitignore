@@ -40,3 +40,7 @@ sampen_mex.exp
 /CustomTimeSeries/*.txt
 
 /.venv
+
+*.csv
+*.pyc
+*/__pycache__/
