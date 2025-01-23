@@ -198,7 +198,7 @@ if doPlot
     plot([1,length(w)],ones(2,1)*mean(w),'color',c{2},'LineWidth',2); % mean
     % running variance:
     stds = nan(N,2);
-    wl = 50;
+    %wl = 50;
     for i = wl+1:N
         if i > wl
             stds(i,1) = std(y(i-wl:i));
