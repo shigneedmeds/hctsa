@@ -142,9 +142,9 @@ switch walkerRule
         m = walkerParams(1); % 'inertial mass'
 %         F=walkerParams(2); % weight of 'force' from time series
 
-        %stds = zeros(N,2);
-        %stds = stds + 1;
-        %wl = 50;
+        stds = zeros(N,2);
+        stds = stds + 1;
+        wl = 1;
 
         w(1) = y(1);
         w(2) = y(2);
@@ -152,12 +152,13 @@ switch walkerRule
             w_inert = w(i-1) + (w(i-1)-w(i-2));
 %             w(i)=w_inert+(y(i-1)-w(i-1))/m; % dissipative term
 
-            %if i > wl
-                %stds(i,1) = std(y(i-wl:i));
-                %stds(i,2) = std(w(i-wl:i));
+            if i > wl
+                stds(i,1) = std(y(i-wl:i));
+                stds(i,2) = std(w(i-wl:i));
 
-            %end
-            w(i) = w_inert + (y(i)-w_inert)/m; %* stds(i,1)/stds(i,2);  dissipative term
+            end
+            w(i) = w_inert + (y(i)-w_inert)/m;%  %dissipative term
+            % w(i) = w(i) * (stds(i,1)/stds(i,2)); 
             % equation of motion (s-s_0=ut+F/m*t^2)
             % where the 'force' F is the change in the original time series
             % at that point
