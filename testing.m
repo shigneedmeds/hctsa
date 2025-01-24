@@ -1,4 +1,4 @@
-tpf = readmatrix("CustomTimeSeries\noisy_sin.csv");
+tpf = readmatrix("CustomTimeSeries\sin_noisy.csv");
 
 mea = nan(50);
 medi = nan(50);
