@@ -1,5 +1,4 @@
-tpf = readmatrix("CustomTimeSeries\normalised.txt");
+tpf = readmatrix("CustomTimeSeries\sin.csv");
 
-tpf = transpose(tpf);
 
-x = PH_Walker(tpf(:, 1276), "momentum", 50) 
+x = PH_Walker(tpf(:,10), "momentum", 100);

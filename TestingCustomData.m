@@ -1,4 +1,4 @@
-tpf = readmatrix("CustomTimeSeries\sin_noisy.csv");
+tpf = readmatrix("CustomTimeSeries\sin.csv");
 
 mea = nan(50);
 medi = nan(50);
@@ -7,7 +7,7 @@ absdiff = nan(50);
 
 %increasing frequency
 for i = 1:50
-    x = PH_Walker(tpf(:, i), "momentum", 2);
+    x = PH_Walker(tpf(:, i), "momentum", 50);
     mea(i) = x.w_mean;
     medi(i) = x.w_median;
     stds(i) = x.w_std;
