@@ -1,13 +1,16 @@
 tpf = readmatrix("CustomTimeSeries\sin.csv");
 
-mea = nan(50);
-medi = nan(50);
-stds = nan(50);
-absdiff = nan(50);
+n = 100;
+
+
+mea = nan(n);
+medi = nan(n);
+stds = nan(n);
+absdiff = nan(n);
 
 %increasing frequency
-for i = 1:50
-    x = PH_Walker(tpf(:, i), "momentum", 50);
+for i = 1:100
+    x = PH_Walker(tpf(:, i), "momentum", 200);
     mea(i) = x.w_mean;
     medi(i) = x.w_median;
     stds(i) = x.w_std;

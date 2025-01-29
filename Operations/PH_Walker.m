@@ -78,7 +78,7 @@ function out = PH_Walker(y,walkerRule,walkerParams)
 % ------------------------------------------------------------------------------
 %% Preliminaries
 % ------------------------------------------------------------------------------
-doPlot = 1;%ot outputs to figure
+doPlot = 0;%ot outputs to figure
 N = length(y); % the length of the input time series, y
 
 % ------------------------------------------------------------------------------
