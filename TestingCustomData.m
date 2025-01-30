@@ -1,4 +1,4 @@
-tpf = readmatrix("CustomTimeSeries\sin.csv");
+tpf = readmatrix("CustomTimeSeries\sin_noisy.csv");
 
 n = 100;
 
@@ -7,6 +7,7 @@ mea = nan(n);
 medi = nan(n);
 stds = nan(n);
 absdiff = nan(n);
+freq = nan(n);
 
 %increasing frequency
 for i = 1:100
@@ -15,28 +16,30 @@ for i = 1:100
     medi(i) = x.w_median;
     stds(i) = x.w_std;
     absdiff(i) = x.sw_meanabsdiff;
+    freq(i) = 0.01 +(i-1) * (0.29/100);
+
 end
 
 figure(1);
-plot(mea);
+plot(freq, mea);
 title("mean");
 xlabel("frequency");
 ylabel("statistic");
 
 figure(2);
-plot(medi);
+plot(freq, medi);
 title("median");
 xlabel("frequency");
 ylabel("statistic");
 
 figure(3);
-plot(stds);
+plot(freq, stds);
 title("standard deviation");
 xlabel("frequency");
 ylabel("statistic");
 
 figure(4);
-plot(absdiff);
+plot(freq, absdiff);
 title("mean absolute difference");
 xlabel("frequency");
 ylabel("statistic");
