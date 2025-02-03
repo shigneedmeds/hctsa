@@ -10,7 +10,7 @@ namedFiles = files(~endsWith(files.name, '_N.mat'),:);
 filenames = namedFiles.name;
 
 for i = 1:93
-    loaded = convertStringsToChars("Data/" + string(filenames(i))) %load(string(filenames(i)));
+    loaded = convertStringsToChars("Data/" + string(filenames(i))); %load(string(filenames(i)));
     TS_Normalize('mixedSigmoid' ,[0.70,1] ,loaded);
 end
 
