@@ -31,6 +31,7 @@ for i = 1:93
 end
 
 x = max_classes(:, 1);
+x = x - 1;
 T = table(filenames, x,'VariableNames',{'filename', 'number of classes'});
 writetable(T,'classes.txt');
 
