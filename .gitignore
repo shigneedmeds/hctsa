@@ -44,3 +44,4 @@ sampen_mex.exp
 *.csv
 *.pyc
 */__pycache__/
+*_N.mat
