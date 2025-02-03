@@ -10,7 +10,7 @@ namedFiles = files(endsWith(files.name, '_N.mat'),:);
 filenames = namedFiles.name;
 
 
-n = 100
+n = 100;
 nums = [0:n];
 classes = cellstr(string(nums));
 
@@ -25,11 +25,14 @@ for i = 1:93
             continue
         catch
             max_classes(i) = j;
+            break
         end
     end
 end
 
-save("max_classes.mat", max_classes);
+x = max_classes(:, 1);
+T = table(filenames, x,'VariableNames',{'filename', 'number of classes'});
+writetable(T,'classes.txt');
 
 
 

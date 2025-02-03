@@ -45,3 +45,4 @@ sampen_mex.exp
 *.pyc
 */__pycache__/
 *_N.mat
+*.zip
