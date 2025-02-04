@@ -11,15 +11,15 @@ for i = 1:93
     [ifeat, testStat, x, y] = TS_TopFeatures(loaded, "classification", struct(), 'whatPlots',{});
     ordered = sort(ifeat);
 
-    t = testStat(ordered == 2638); %just the mean of a mass 2 walker for now, later try to include all of the different stats
-    z_scores(i) = (t - mean(testStat))/std(testStat);
+    t = testStat((2638 <= ordered) & (ordered <= 2657)); %just the mean of a mass 2 walker for now, later try to include all of the different stats
+    z_scores(i) = (max(t) - mean(testStat))/std(testStat);
 
 
 end
 
 %scatter(1:93, z_scores);
 T = table(filenames, z_scores,'VariableNames',{'filename', 'z_score of walker'});
-writetable(T,'walker_performance.txt');
+writetable(sortrows(T, 2),'walker_performance.txt');
 
 histogram(z_scores, 10);
 xlabel("Z\_scores");
