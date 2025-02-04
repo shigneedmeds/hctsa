@@ -14,7 +14,7 @@ n = 100;
 nums = [0:n];
 classes = cellstr(string(nums));
 
-max_classes = zeros(93);
+max_classes = zeros(93, 1);
 
 for i = 1:93
     loaded = convertStringsToChars("Normalized/" + string(filenames(i)));
@@ -30,18 +30,10 @@ for i = 1:93
     end
 end
 
-x = max_classes(:, 1);
+%x = max_classes(:, 1);
 x = x - 1;
 T = table(filenames, x,'VariableNames',{'filename', 'number of classes'});
 writetable(T,'classes.txt');
 
 
 
-%[ifeat, testStat, x, y] = TS_TopFeatures(loaded, "classification", struct(), 'whatPlots',{});
-
-
-%for i = 1:93
-    %loaded = convertStringsToChars("Normalized/" + string(filenames(i))); %load(string(filenames(i)));
-    %t = TS_TopFeatures(loaded).testStat;
-    %
-%end
