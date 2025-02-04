@@ -25,7 +25,7 @@ for i = 1:93
 end
 
 %scatter(1:93, z_scores);
-T = table(filenames, z_scores, ops, 'VariableNames',{'filename', 'z_score of walker', "operation"});
+T = table(filenames, z_scores, ops, 'VariableNames',{'filename', 'z_score of walker', 'operation'});
 writetable(sortrows(T, 2),'walker_performance-maxstat.txt');
 
 histogram(z_scores, 10);
