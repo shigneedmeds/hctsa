@@ -4,6 +4,7 @@ filenames = tab.filename;
 
 z_scores = zeros(93, 1);
 ops = string(zeros(93, 1));
+accuracy = zeros(93,1);
 
 %just looking at z_scores of momentum walker with mass 2 for now (specifically the mean)
 
@@ -20,15 +21,17 @@ for i = 1:93
     op = walker_ops(t == max(t));
     op = string(op);
     ops(i) = join(op, " ");
+    accuracy(i) = max(t);
 
 
 end
 
 %scatter(1:93, z_scores);
-T = table(filenames, z_scores, ops, 'VariableNames',{'filename', 'z_score of walker', 'operation'});
+T = table(filenames, z_scores, accuracy, ops, 'VariableNames',{'filename', 'z_score of walker',...
+'accuracy', 'operation'});
 writetable(sortrows(T, 2),'walker_performance-maxstat.txt');
 
 histogram(z_scores, 10);
 xlabel("Z\_scores");
 ylabel("Counts");
-title("Z\_scores of mean of mass 2 walker");
+title("Max Z\_scores (across stats) of mass 2 walker");
