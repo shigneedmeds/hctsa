@@ -1,0 +1,2 @@
+masses,z_score of walker,accuracy,operation
+5,2.32612905366876,64.820473644003,2669
