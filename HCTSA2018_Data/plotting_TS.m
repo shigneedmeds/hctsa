@@ -1,9 +1,10 @@
-dataset = 'Normalized/HCTSA_Herring_N.mat';
+set = "Coffee";
+dataset = "Normalized/HCTSA_" + set + "_N.mat";
+dataset = convertStringsToChars(dataset);
 
 [TS_DataMat,TimeSeries,Operations,~] = TS_LoadData(dataset);
 
 no_groups = max(double(TimeSeries.Group));
-
 
 
 for i = 0:no_groups - 1
@@ -21,9 +22,17 @@ for i = 0:no_groups - 1
     plot(mean(ts, 2), "LineWidth", 2, "Color", "r");
     
     hold off;
+    xlabel("time");
+    ylabel("x(t)");
+    title(sprintf("%s class %d", set, i + 1));
+
     %legend({"mean", string(i)}, {"r", "b"})
 
 end
+
+saveas(gcf, "DatasetPlots/" + set + ".png")
+close(gcf);
+
 
 figure();
 
@@ -37,7 +46,7 @@ for i = 0:no_groups - 1
     time = zeros(size(ts));
 
     for j = 1:col
-        m = 5;
+        m = 40;
         w = time(:, j);
         y = ts(:, j);
 
@@ -60,12 +69,18 @@ for i = 0:no_groups - 1
     plot(mean(time, 2), "LineWidth", 2, "Color", "r");
     
     hold off;
+
+    xlabel("time");
+    ylabel("w(t)");
+    title(sprintf("Walker on %s class %d", set, i + 1));
     %legend({"mean", string(i)}, {"r", "b"})
 
 end
 
+saveas(gcf, sprintf("WalkerPlots/%s_walker_%d.png", set, m));
+close(gcf);
 
-figure();
+stats_mass = zeros(100, 21, no_groups);
 
 for i = 0:no_groups - 1
     ts = cell2mat(transpose(TimeSeries(TimeSeries.Group == string(i), :).Data));
@@ -73,23 +88,53 @@ for i = 0:no_groups - 1
     row = col(1);
     col = col(2);
 
-    stats_mass = zeros(100, 1);
-
     for m = 1:100
-        stats = zeros(col, 1);
+        stats = zeros(col, 21);
 
         for j = 1:col
-            stats(j) = PH_Walker(ts(:, j), "momentum", m).w_tau; %2663
+            s = PH_Walker(ts(:, j), "momentum", m);
+            stats(j, :) = cell2mat(struct2cell(s)); %2663
         end
 
-        stats_mass(m) = mean(stats);
+        stats_mass(m, :, i + 1) = mean(stats);
 
     end
 
-    subplot(no_groups,1, i + 1);
-    plot(stats_mass);
-
-
+    
 
 end
+
+names = ["w_mean", "w_median", "w_std", ...
+"w_ac1", "w_ac2", "w_tau", "w_min", "w_max", ...
+"w_propzcross", "sw_meanabsdiff", "sw_taudiff", ...
+"sw_stdrat", "sw_ac1rat", "sw_minrat", "sw_maxrat",...
+"sw_propcross", "sw_ansarib_pval", "sw_distdiff"];
+
+names = transpose(names);
+
+for i = 1:18
+    figure();
+    %axs = [];
+    for j = 0:no_groups-1
+        %a = subplot(no_groups,1, j + 1);
+        plot(stats_mass(:, i, j + 1));
+        hold on;
+        %xlabel("mass");
+        %ylabel("stat");
+        %title(sprintf("%s of walker vs increasing mass (%s class %d)", names(i), set, j + 1));
+        %axs = [axs; a];
+    end
+    %linkaxes(axs, 'y');
+    hold off;
+
+    xlabel("mass");
+    ylabel("stat");
+    title(sprintf("%s of walker vs increasing mass (%s)", names(i), set));
+    legend(string(1:no_groups));
+
+    saveas(gcf, sprintf("StatsvsMass/%s-%s.png", set, names(i)));
+    
+    close(gcf);
+end
+
 %legend({"1", "2"})

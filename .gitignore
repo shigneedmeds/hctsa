@@ -46,3 +46,5 @@ sampen_mex.exp
 */__pycache__/
 *_N.mat
 *.zip
+
+*.png
