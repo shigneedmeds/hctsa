@@ -1,4 +1,4 @@
-set = "Coffee";
+set = "ECG200";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 
@@ -6,7 +6,9 @@ dataset = convertStringsToChars(dataset);
 
 no_groups = max(double(TimeSeries.Group));
 
+figure('Position', [10,10,550, 300*no_groups])
 
+axs = [];
 for i = 0:no_groups - 1
     ts = cell2mat(transpose(TimeSeries(TimeSeries.Group == string(i), :).Data));
     col = size(ts);
@@ -16,6 +18,7 @@ for i = 0:no_groups - 1
     %figure();
 
     subplot(no_groups,1, i + 1);
+    a = subplot(no_groups,1, i + 1);
     
     plot(ts(:, [cols]), "LineWidth", 0.5, "Color", "b");
     hold on;
@@ -26,15 +29,24 @@ for i = 0:no_groups - 1
     ylabel("x(t)");
     title(sprintf("%s class %d", set, i + 1));
 
+    axs = [axs; a];
+
     %legend({"mean", string(i)}, {"r", "b"})
 
 end
+
+if ~isfolder("DatsetPlots/")
+    mkdir("DatasetPlots/")
+end
+
+
+linkaxes(axs, 'y');
 
 saveas(gcf, "DatasetPlots/" + set + ".png")
 close(gcf);
 
 
-figure();
+figure('Position', [10,10,550, 300*no_groups])
 
 for i = 0:no_groups - 1
     ts = cell2mat(transpose(TimeSeries(TimeSeries.Group == string(i), :).Data));
@@ -46,7 +58,7 @@ for i = 0:no_groups - 1
     time = zeros(size(ts));
 
     for j = 1:col
-        m = 40;
+        m = 5;
         w = time(:, j);
         y = ts(:, j);
 
@@ -63,6 +75,7 @@ for i = 0:no_groups - 1
     %figure();
 
     subplot(no_groups,1, i + 1);
+    a = subplot(no_groups,1, i + 1);
     
     plot(time(:, [cols]), "LineWidth", 0.5, "Color", "b");
     hold on;
@@ -72,10 +85,18 @@ for i = 0:no_groups - 1
 
     xlabel("time");
     ylabel("w(t)");
-    title(sprintf("Walker on %s class %d", set, i + 1));
+    title(sprintf("Walker %d on %s class %d", m , set, i + 1));
+    axs = [axs; a];
     %legend({"mean", string(i)}, {"r", "b"})
 
 end
+
+if ~isfolder("WalkerPlots")
+    mkdir("WalkerPlots/")
+end
+
+
+linkaxes(axs, 'y');
 
 saveas(gcf, sprintf("WalkerPlots/%s_walker_%d.png", set, m));
 close(gcf);
@@ -103,6 +124,15 @@ for i = 0:no_groups - 1
     
 
 end
+
+if ~isfolder("StatsvsMass/")
+    mkdir("StatsvsMass/")
+end
+
+if ~isfolder(sprintf("StatsvsMass/%s/", set))
+    mkdir(sprintf("StatsvsMass/%s/", set))
+end
+
 
 names = ["w_mean", "w_median", "w_std", ...
 "w_ac1", "w_ac2", "w_tau", "w_min", "w_max", ...
@@ -132,7 +162,7 @@ for i = 1:18
     title(sprintf("%s of walker vs increasing mass (%s)", names(i), set));
     legend(string(1:no_groups));
 
-    saveas(gcf, sprintf("StatsvsMass/%s-%s.png", set, names(i)));
+    saveas(gcf, sprintf("StatsvsMass/%s/%s-%s.png", set, set, names(i)));
     
     close(gcf);
 end
