@@ -1,4 +1,4 @@
-set = "Beef";
+set = "ChlorineConcentration";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 

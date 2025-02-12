@@ -1,4 +1,4 @@
-set = "ECG200";
+set = "Adiac";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 
@@ -6,7 +6,7 @@ dataset = convertStringsToChars(dataset);
 
 no_groups = max(double(TimeSeries.Group));
 
-figure('Position', [10,10,550, 300*no_groups])
+figure('units', 'points', 'Position', [10,10,550, 300*no_groups])
 
 axs = [];
 for i = 0:no_groups - 1
