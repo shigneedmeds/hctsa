@@ -1,4 +1,4 @@
-set = "ChlorineConcentration";
+set = "Adiac";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 
