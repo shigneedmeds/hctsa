@@ -1,4 +1,4 @@
-set = "Adiac";
+set = "StarLightCurves";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 
