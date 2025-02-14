@@ -6,6 +6,7 @@ dataset = convertStringsToChars(dataset);
 
 ts = cell2mat(transpose(TimeSeries.Data));
 labels = double(TimeSeries.Group);
+test = contains(TimeSeries.Keywords, "TRAIN");
 
 
 time = zeros(size(ts));
@@ -32,7 +33,7 @@ end
 
 time = transpose(time);
 
-result = [labels, time];
+result = [labels, test, time];
 
 writematrix(result, sprintf("Smoothed/%s_smoothed.csv", set));
 
