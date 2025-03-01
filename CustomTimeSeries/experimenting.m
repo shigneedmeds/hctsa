@@ -1,4 +1,4 @@
-tpf = readmatrix("CustomTimeSeries\sin.csv");
+tpf = readmatrix("CustomTimeSeries\sin_noisy.csv");
 
 
-x = PH_Walker(tpf(:,10), "momentum", 100);
+x = PH_Walker(tpf(:,5), "momentum", 2);

@@ -188,7 +188,8 @@ if doPlot
     c = BF_GetColorMap('set1',3,1);
     plot(y,'.-k','LineWidth',lw); % original time series
     plot(w,'.-','color',c{1},'LineWidth',lw); % walker
-    plot([1,length(w)],ones(2,1)*mean(w),'color',c{2},'LineWidth',2); % mean
+    xlabel('time')
+    % plot([1,length(w)],ones(2,1)*mean(w),'color',c{2},'LineWidth',2); % mean
     % running variance:
     stds = nan(N,2);
     %wl = 50;
@@ -199,7 +200,7 @@ if doPlot
         end
     end
     % plot(stds(:,1),':r'); % this is the time series
-    plot(stds(:,1)./stds(:,2),'color',c{3},'LineWidth',lw); % this is the adjustment factor
+    % plot(stds(:,1)./stds(:,2),'color',c{3},'LineWidth',lw); % this is the adjustment factor
     % means = zeros(N,1);
     % for i = 1:N
     %     means(i) = mean(w(1:i));
