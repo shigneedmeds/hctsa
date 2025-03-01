@@ -1,4 +1,4 @@
-set = "Adiac";
+set = "TwoLeadECG";
 dataset = "Normalized/HCTSA_" + set + "_N.mat";
 dataset = convertStringsToChars(dataset);
 
